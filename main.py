@@ -15,12 +15,20 @@ browser = webdriver.Chrome(service=ChromeDriverPath, options=myOptions)
 
 # 前往目標網址
 url = "https://tixcraft.com/"
+
+# 開始
+# 打來 cookie.json 資料
+with open("cookie.json") as f:
+    cookies = json.load(f)
+
+# 打開瀏覽器
 browser.get(url)
 
-# search = browser.find_element(by="name", value="query")
-# search.send_keys("比特幣")
-# search.send_keys(Keys.RETURN)
+# 遍歷所有 cookie 並帶入到網頁中
+for cookie in cookies:
+    browser.add_cookie(cookie)
+# 重新整理網頁
+browser.refresh()
 
 time.sleep(6)
-
 browser.quit()
